@@ -29,9 +29,13 @@ $KRSResult = $KRSPodmioty->page(10)
         ->getResult();
 
 if ($KRSResult) {
-    $KRSPodmioty->toJson(); // return json
-    $KRSPodmioty->toArray(); // return array
-    $KRSPodmioty->toObject(); // return object
+
+   if($KRSPodmioty->countResult()) { // check count result
+      $KRSPodmioty->toJson(); // return json
+      $KRSPodmioty->toArray(); // return array
+      $KRSPodmioty->toObject(); // return object
+   }
+   
 } else {
     $KRSPodmioty->responseCode; // what happened?, use this for service error
 }
