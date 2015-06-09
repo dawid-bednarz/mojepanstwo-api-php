@@ -179,9 +179,20 @@ class MojePanstwoProvider extends MojePanstwoAPI {
 
         curl_close($curl);
 
-        if (is_null($this->output))
+        if ($this->responseCode !== 200)
             return false;
         return true;
+    }
+
+    /**
+     * check count result
+     * @return boolean
+     */
+    public function countResult() {
+
+        $arrayOutput = $this->toArray();
+
+        return (boolean) $arrayOutput['search']['pagination']['count'];
     }
 
     /**
@@ -189,7 +200,9 @@ class MojePanstwoProvider extends MojePanstwoAPI {
      * @return string
      */
     public function toJSON() {
+        if (!is_null($this->output))
             return $this->output;
+        return null;
     }
 
     /**
