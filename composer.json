@@ -1,0 +1,16 @@
+{
+    "name": "dawid-daweb/mojepanstwo-api-php",
+    "description": "service API from https://mojepanstwo.pl/api ",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "daWeb",
+            "email": "dawid@daweb.vdl.pl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "daweb\\mojepanstwo\\": "mojepanstwo/"
+        }
+    }
+}
