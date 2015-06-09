@@ -32,6 +32,12 @@ class MojePanstwoProvider extends MojePanstwoAPI {
     public $responseCode = NULL;
 
     /**
+     * result of curl execute
+     * @var string 
+     */
+    protected $output;
+
+    /**
      * add query array conditions for request
      * @param array $conditions assoc array with conditions
      * @return MojePanstwoProvider
@@ -61,7 +67,7 @@ class MojePanstwoProvider extends MojePanstwoAPI {
      */
     public function fullSearchText($q) {
 
-        $this->addQueryString("q", $value);
+        $this->addQueryString("q", $q);
 
         return $this;
     }
@@ -147,7 +153,7 @@ class MojePanstwoProvider extends MojePanstwoAPI {
 
     /**
      * execute curl request to api 
-     * @return boolean | stdClass
+     * @return boolean
      */
     public function getResult() {
 
@@ -164,15 +170,45 @@ class MojePanstwoProvider extends MojePanstwoAPI {
             CURLOPT_HTTPHEADER => ['Accept: application/json']
         ));
 
-        $res = json_decode(curl_exec($curl));
+        $this->output = curl_exec($curl);
 
         $this->responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
 
-        if (is_null($res))
+        if (is_null($this->output))
             return false;
-        return $res; // stdClass
+        return true;
+    }
+
+    /**
+     * output curl
+     * @return string
+     */
+    public function toJSON() {
+        if (!is_null($this->output))
+            return $this->output;
+        return null;
+    }
+
+    /**
+     * convert output curl to object 
+     * @return stdClass
+     */
+    public function toObject() {
+        if (!is_null($this->output))
+            return json_decode($this->output);
+        return null;
+    }
+
+    /**
+     * convert output curl to array
+     * @return array
+     */
+    public function toArray() {
+        if (!is_null($this->output))
+            return json_decode($this->output, true);
+        return null;
     }
 
 }
