@@ -120,20 +120,23 @@ class MojePanstwoProvider extends MojePanstwoAPI {
     }
 
     /**
-     * set search api 
+     * set route api and return new object 
      * @param integer $num
      * @return MojePanstwoProvider
      * @throws MojePanstwoProviderException
      */
     public function search($num) {
 
-        $route = $this->getRoute($num);
+        $that = new $this;
+
+        $route = $that->getRoute($num);
 
         if (is_null($route)) {
             throw new MojePanstwoProviderException('Nieprawidłowa ścieżka api');
         }
-        $this->route = $route;
-        return $this;
+        $that->route = $route;
+
+        return $that;
     }
 
     /**
