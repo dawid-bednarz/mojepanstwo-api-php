@@ -186,9 +186,7 @@ class MojePanstwoProvider extends MojePanstwoAPI {
      * @return string
      */
     public function toJSON() {
-        if (!is_null($this->output))
             return $this->output;
-        return null;
     }
 
     /**
