@@ -18,7 +18,7 @@ Example
 ~~~ go
 $mojePanstwoProvider = new MojePanstwoProvider;
 
-$KRSPodmioty = $mojePanstwoProvider->search($mojePanstwoProvider::KRS_PODMIOTY);
+$KRSPodmioty = $mojePanstwoProvider->search(MojePanstwoProvider::KRS_PODMIOTY);
 
 $KRSResult = $KRSPodmioty->page(10)
         ->conditons([
